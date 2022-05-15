@@ -76,19 +76,13 @@ export async function saveCoworker(coworker) {
 
 export async function saveManyCoworkers(list) {
   const conn = await getDBConnection();
-  const results = [];
+  const calls = [];
 
-  for (coworker of list) {
-    try {
-      const [rows, _fields] = await conn.execute('insert into coworkers set ?', coworker);
-      results.push(rows);
-    } catch (err) {
-      console.log(err);
-      throw err;
-    } finally {
-      await conn.end();
-    }
-  }
+  for (coworker of list) calls.push(conn.execute('insert into coworkers set ?', coworker));
+
+  return Promise.all(calls, results => {
+    return results;
+  });
 }
 
 export async function updateCoworker(data, filter) {
