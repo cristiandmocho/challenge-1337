@@ -1,5 +1,11 @@
 import { Router } from 'express';
-import { getCoworkerById, getCoworkerByName, getCoworkersCount, getCoworkersList } from '../dtos/coworker.js';
+import {
+  getCoworkerById,
+  getCoworkerByName,
+  getCoworkersCount,
+  getCoworkersList,
+  updateCoworker,
+} from '../dtos/coworker.js';
 import { Authenticate, ValidateToken } from '../middleware/auth.js';
 
 const router = Router();
@@ -30,7 +36,23 @@ router.get('/coworker/:id', ValidateToken, async (req, res) => {
   res.json(data);
 });
 
-const updateHandler = (req, res) => {};
+const updateHandler = async (req, res) => {
+  const data = req.body;
+  const errors = {};
+
+  if (!data?.id) errors.text = 'ID is required';
+  if (!data?.name) errors.name = 'Name is required';
+  if (!data?.city) errors.city = 'City is required';
+  if (!data?.text) errors.text = 'Text is required';
+
+  if (err !== {}) return res.status(400).json(errors);
+
+  const coworker = { ...data };
+  delete coworker.id;
+
+  await updateCoworker(coworker, { id: data.id });
+  res.json({});
+};
 
 // Recommended verb for partial updates (PATCH)
 router.patch('/coworker', ValidateToken, updateHandler);
