@@ -1,4 +1,4 @@
-# ![logo](https://gist.github.com/cristiandmocho/13706fe86d464784735e3e62df0c616f#file-logo-svg) Coding Challenge
+# ![logo](https://ezsystems.net/images/logo1337.svg) Coding Challenge
 
 > author: Cristian Mocho on 16/05/2022
 
