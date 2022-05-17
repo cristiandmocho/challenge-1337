@@ -66,10 +66,6 @@ This version of the API includes the following endpoints and features:
 
 On this version of teh application, the data is being persisted in a local JSON file.
 
-## Documentation
-
-A simple documentation of this API is provided at <https://something.som>, made with Postman.
-
 ## Public API
 
 This API is available for testing at <https://api1337.ezsystems.net/>. There's a Postman Collection included in this project that you can import and easily use. The documentation for this API is also made with Postman, and it's available at <https://documenter.getpostman.com/view/10330941/Uyxkik6B>
