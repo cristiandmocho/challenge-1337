@@ -72,7 +72,7 @@ A simple documentation of this API is provided at <https://something.som>, made 
 
 ## Public API
 
-This API is available for testing at <https://api1337.ezsystems.net/>.
+This API is available for testing at <https://api1337.ezsystems.net/>. There's a Postman Collection included in this project that you can import and easily use. The documentation for this API is also made with Postman, and it's available at <https://documenter.getpostman.com/view/10330941/Uyxkik6B>
 
 I have a video on how to host Node/Express apps (or any other app for that matter) using NGINX and Certbot on a DigitalOcean VPS. I'm REALLY not a YouTuber, so I apologize for the lack of camera intimacy... 😂
 

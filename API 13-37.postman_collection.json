@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "e0a14746-e230-4410-9a5c-b876c7dff530",
+		"name": "API 13|37",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"whatever\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Coworkers List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/coworkers",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"coworkers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Coworkers By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/coworker/:id",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"coworker",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Coworkers List - Filtering",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/coworkers?filter=shi",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"coworkers"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "shi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Coworkers List - Pagination",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/coworkers?start=10&end=20",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"coworkers"
+					],
+					"query": [
+						{
+							"key": "start",
+							"value": "10"
+						},
+						{
+							"key": "end",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Coworker Data",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 10,\r\n    \"name\": \"Amin Yosoh\",\r\n    \"city\": \"Lund\",\r\n    \"text\": \"<p>Updated text for this profile</p>\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/coworker",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"coworker"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://api1337.ezsystems.net/api"
+		}
+	]
+}
