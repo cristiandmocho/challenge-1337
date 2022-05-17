@@ -1,10 +1,8 @@
-import { closeSync, writeFileSync } from 'fs';
+import { writeFileSync } from 'fs';
 import { join } from 'path';
 import puppeteer from 'puppeteer';
 
 const ScrapingURL = 'https://tretton37.com';
-
-export function saveScrapedData(data) {}
 
 export async function scrapeData() {
   try {

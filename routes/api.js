@@ -18,7 +18,6 @@ router.post('/login', Authenticate, (_req, res) => {
 // private endpoints
 router.get('/coworkers', ValidateToken, async (req, res) => {
   const { start, end, filter } = req.params;
-  let data;
 
   const rowCount = await getCoworkersCount();
 

@@ -7,7 +7,7 @@ import helmet from 'helmet';
 
 import routes from './routes/api.js';
 
-import { scrapeData, saveScrapedData } from './utils/scraper.js';
+import { scrapeData } from './utils/scraper.js';
 
 const app = express();
 

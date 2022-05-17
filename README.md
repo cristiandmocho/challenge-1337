@@ -9,30 +9,62 @@ The project was made using the following:
 - Yarn
 - Express
 - CORS and Helmet (basic security setup)
-- MySQL
 - Puppeteer
 - DotEnv
 
-To properly see this project running, it requires a quick set-up on the developer side.
+To properly see this project running, it requires a quick set-up on the developer side. Some environment variables are required:
 
-After downlaoding the project, install all the dependencies with `yarn`.
+```bash
+NODE_ENV = development
+
+API_SERVER_PORT = 8085 # (or whatever port you prefer)
+
+JWT_SECRET = <secret>
+JWT_EXPIRATION = "1h"
+```
+
+The easiest way to create a "random" secret for the JWT is to open a `node` terminal and type the line below:
+
+```javascript
+require('crypto').randomBytes(32).toString('hex');
+```
+
+Example:
+
+```javascript
+$ node
+Welcome to Node.js v17.9.0.
+Type ".help" for more information.
+> require('crypto').randomBytes(32).toString('hex')
+'5542583fb7b99ea12b8cb19900d7c58eeb20db3955907e7512f8af17d97a1a59'
+```
+
+After downloading the project, install all the dependencies with `yarn`.
 
 ```bash
 yarn
 ```
 
-The script to create the database and table structure is included in this repository, although the database is not in sue on this first version! So no need to set up or run it.
-
 ## Features
+
+### API endpoints
 
 This version of the API includes the following endpoints and features:
 
 - `GET: /api/coworkers`, with pagination and filtering by name (using Regular Expressions)
 - `GET: /api/coworker/:id`
-- `POST: /api/coworker` for updating [^1]
-- `PATCH: /api/coworker`, also for updating!
+- `POST: /api/coworker` for updating
+- `PATCH: /api/coworker`, also for updating! [^1]
 
 [^1]: The reason I decided to create an additional endpoint for updates is because the HTTP verb chosen for the challenge is not semantically correct.
+
+### JWT Authentication
+
+- `POST: /api/login`, validate the credentials and returns a token as plain text
+
+### Data Persistence
+
+On this version of teh application, the data is being persisted in a local JSON file.
 
 ## Documentation
 
