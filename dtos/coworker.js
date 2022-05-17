@@ -9,13 +9,15 @@ export async function getCoworkersCount() {
 }
 
 export async function getCoworkersList(start = 0, end = 0) {
+  if (start === 0 && end === 0) return data;
+
   return data.filter((row, i) => {
-    if (i >= start && i <= end) return row;
+    if (i >= start - 1 && i < end) return row;
   });
 }
 
 export async function getCoworkerById(id) {
-  return data.filter(row => row.id === id);
+  return data.filter(row => row.id === Number(id));
 }
 
 export async function getCoworkerByName(name) {

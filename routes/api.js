@@ -12,18 +12,22 @@ const router = Router();
 
 // public endpoint
 router.post('/login', Authenticate, (_req, res) => {
-  res.json({ auth_token: res.auth_token });
+  res.header('Content-type', 'plain/text').send(res.auth_token);
 });
 
 // private endpoints
 router.get('/coworkers', ValidateToken, async (req, res) => {
-  const { start, end, filter } = req.params;
+  const { start, end, filter } = req.query;
 
-  const rowCount = await getCoworkersCount();
+  let rowCount = await getCoworkersCount();
+  let data;
 
   if (!start && !end && !filter) data = await getCoworkersList();
   if (start && end) data = await getCoworkersList(start, end);
-  if (filter) data = await getCoworkerByName(filter);
+  if (filter) {
+    data = await getCoworkerByName(filter);
+    rowCount = data.length;
+  }
 
   res.json({ data, totalLength: rowCount });
 });
@@ -39,17 +43,17 @@ const updateHandler = async (req, res) => {
   const data = req.body;
   const errors = {};
 
-  if (!data?.id) errors.text = 'ID is required';
+  if (!data?.id) errors.id = 'ID is required';
   if (!data?.name) errors.name = 'Name is required';
   if (!data?.city) errors.city = 'City is required';
   if (!data?.text) errors.text = 'Text is required';
 
-  if (err !== {}) return res.status(400).json(errors);
+  if (errors.id || errors.name || errors.city || errors.text) return res.status(400).json(errors);
 
   const coworker = { ...data };
   delete coworker.id;
 
-  await updateCoworker(coworker, { id: data.id });
+  await updateCoworker(coworker, data.id);
   res.json({});
 };
 

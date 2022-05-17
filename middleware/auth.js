@@ -20,7 +20,7 @@ export function Authenticate(req, res, next) {
 
 export function ValidateToken(req, res, next) {
   try {
-    const authHeader = req.headers?.Authorization;
+    const authHeader = req.headers?.authorization;
     if (!authHeader) throw { code: 401, message: 'User not authenticated' };
 
     const token = authHeader.replace('Bearer ', '');
