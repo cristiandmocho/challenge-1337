@@ -1,100 +1,32 @@
-import { getDBConnection } from './db.js';
+import { readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
+const dataRaw = readFileSync(join(process.cwd(), 'data', 'saved-data.json'), 'utf-8');
+let data = JSON.parse(dataRaw);
 
 export async function getCoworkersCount() {
-  const conn = await getDBConnection();
-
-  try {
-    const [rows, _fields] = await conn.execute('select count(id) as rowCount from coworkers');
-    return rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
-  }
+  return data.length;
 }
 
 export async function getCoworkersList(start = 0, end = 0) {
-  const conn = await getDBConnection();
-  const pageSize = Number(end) - Number(start);
-
-  let query = 'select * from coworkers';
-  if (pageSize > 0) query += ' limit ?, ?';
-
-  try {
-    const [rows, _fields] = await conn.execute(query, [pageSize]);
-    return rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
-  }
-}
-
-export async function getCoworkerById(id) {
-  const conn = await getDBConnection();
-
-  try {
-    const [rows, _fields] = await conn.execute('select * from coworkers where id = ?', [id]);
-    return rows[0];
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
-  }
-}
-
-export async function getCoworkerByName(name) {
-  const conn = await getDBConnection();
-
-  try {
-    const [rows, _fields] = await conn.execute('select * from coworkers where name regexp(?)', [name]);
-    return rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
-  }
-}
-
-export async function saveCoworker(coworker) {
-  const conn = await getDBConnection();
-
-  try {
-    const [rows, _fields] = await conn.execute('insert into coworkers set ?', coworker);
-    return rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
-  }
-}
-
-export async function saveManyCoworkers(list) {
-  const conn = await getDBConnection();
-  const calls = [];
-
-  for (coworker of list) calls.push(conn.execute('insert into coworkers set ?', coworker));
-
-  return Promise.all(calls, results => {
-    return results;
+  return data.filter((row, i) => {
+    if (i >= start && i <= end) return row;
   });
 }
 
-export async function updateCoworker(data, filter) {
-  const conn = await getDBConnection();
+export async function getCoworkerById(id) {
+  return data.filter(row => row.id === id);
+}
 
-  try {
-    const [rows, _fields] = await conn.execute('update coworkers set ? where ?', [data, filter]);
-    return rows;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  } finally {
-    await conn.end();
+export async function getCoworkerByName(name) {
+  return data.filter(row => new RegExp(name, 'gi').test(row.name));
+}
+
+export async function updateCoworker(coworker, id) {
+  const cw = data.find(row => row.id === id);
+
+  if (cw) {
+    Object.assign(cw, coworker);
+    writeFileSync(join(process.cwd(), 'data', 'saved-data.json'), JSON.stringify(data), 'utf-8');
   }
 }
