@@ -20,7 +20,7 @@ NODE_ENV = development
 API_SERVER_PORT = 8085 # (or whatever port you prefer)
 
 JWT_SECRET = <secret>
-JWT_EXPIRATION = "1h"
+JWT_EXPIRATION = "5m" # 5 minutes
 ```
 
 The easiest way to create a "random" secret for the JWT is to open a `node` terminal and type the line below:
