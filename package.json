@@ -11,7 +11,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "serve": "nodemon server.js"
+    "serve": "nodemon server.js",
+    "scrape": "node server.js do-scrape"
   },
   "dependencies": {
     "cors": "^2.8.5",
